@@ -85,6 +85,10 @@ make all-onchain t=3 n=5 gid=mygroup out=run1 msg="hello tokamak" net=hardhat
 To run the Hardhat tests for the on-chain verifier.
 Navigate to `onchain-verify/`:
 ```bash
+cd onchain-verify
+```
+
+```bash
 npx hardhat test test/ZecFrost.ts
 ```
 
