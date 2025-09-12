@@ -1,6 +1,6 @@
-# tokamak-frost
+# Tokamak Threshold Frost Signature
 
-A minimal end-to-end demo of **threshold Schnorr** with **FROST** over **secp256k1** (Zcash implementation).
+A minimal end-to-end demo of **Threshold Schnorr** with **FROST** over **secp256k1** (Zcash implementation).
 
 > **Note:** This README covers the Rust workspace (`keygen`, `signing`, `verify`) **and** the on-chain Hardhat project in `onchain/` used to verify `signature.json` with `ZecFrost.sol`.
 
@@ -53,10 +53,10 @@ cargo build --workspace
 
 ## Quick start (single command)
 
-Runs: keygen → random pick T signers → round1 → round2 → aggregate → verify.
-
+Here is how the protocol runs: keygen → random pick T signers → round1 → round2 → aggregate → verify.
+To run it for example for the setting *(t,n) = (3,5)* with the group name "*group1*" and output file *run1* with message "hello tokamak" run the following script.
 ```bash
-bash scripts/run_e2e.sh -t 3 -n 5 -g mygroup -o run1 -m "hello tokamak"
+bash scripts/run_e2e.sh -t 3 -n 5 -g group1 -o run1 -m "hello tokamak"
 ```
 
 Flags:
@@ -72,17 +72,21 @@ Signature valid: true
 ```
 
 ### Via Makefile
-After an off-chain run you can verify on-chain via:
-```bash
-make onchain-verify out=run1 net=hardhat
-```
+
 Run the full pipeline **plus** on-chain verification in one go:
 ```bash
 make all-onchain t=3 n=5 gid=mygroup out=run1 msg="hello tokamak" net=hardhat
 ```
+---
 
----
----
+
+### On-chain tests (Hardhat)
+
+To run the Hardhat tests for the on-chain verifier.
+Navigate to `onchain-verify/`:
+```bash
+npx hardhat test test/ZecFrost.ts
+```
 
 ## Manual flow
 
@@ -164,19 +168,6 @@ npx hardhat verify-signature --network hardhat --sig ../run1/signature.json
 npx hardhat verify-signature --network hardhat --sig ../run1/signature.json --address 0xYourZecFrost
 ```
 
-### On-chain tests (Hardhat)
-
-Run the Hardhat tests for the on-chain verifier.
-
-From `onchain-verify/`:
-```bash
-npx hardhat test test/ZecFrost.ts
-```
-> If you see `HHE22` (non-local Hardhat), install dependencies first:
-```bash
-cd onchain-verify && npm ci
-```
-
 ## Troubleshooting
 
 - **`unexpected argument '--shares-dir'`**  
@@ -200,5 +191,4 @@ cd onchain-verify && npm ci
 ---
 
 ## License
-
-MIT or Apache-2.0
+MIT
