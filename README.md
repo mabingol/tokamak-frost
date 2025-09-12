@@ -77,6 +77,11 @@ Run the full pipeline **plus** on-chain verification in one go:
 ```bash
 make all-onchain t=3 n=5 gid=mygroup out=run1 msg="hello tokamak" net=hardhat
 ```
+or 
+```bash
+bash scripts/run_e2e.sh -t 3 -n 5 -g mygroup -o run1 msg="hello tokamak"
+```
+
 ---
 
 
